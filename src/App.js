@@ -5,6 +5,8 @@ import "./App.css";
 function App() {
   const [notes, setNotes] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   useEffect(() => {
     // Fetch existing notes when the component mounts
@@ -30,7 +32,7 @@ function App() {
     if (inputValue.trim() !== "") {
       axios
         .post(
-          "http://hyeumine.com/newnote.php ",
+          "http://hyeumine.com/newnote.php",
           {
             id: 34716, // Replace with the actual user ID
             note: inputValue,
@@ -52,8 +54,60 @@ function App() {
     }
   };
 
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  const handleAddUser = () => {
+    axios
+      .post(
+        "http://hyeumine.com/newuser.php",
+        {
+          firstname: firstName,
+          lastname: lastName,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then((response) => {
+        console.log("User created:", response.data);
+        // Optionally, you can update the UI or perform other actions upon successful user creation
+      })
+      .catch((error) => {
+        console.error("Error adding user:", error);
+      });
+  };
+
   return (
     <div className="container">
+      <h1 className="title">Add User</h1>
+      <div className="input-container">
+        <input
+          type="text"
+          value={firstName}
+          onChange={handleFirstNameChange}
+          placeholder="First Name"
+          className="input-field"
+        />
+        <input
+          type="text"
+          value={lastName}
+          onChange={handleLastNameChange}
+          placeholder="Last Name"
+          className="input-field"
+        />
+        <button onClick={handleAddUser} className="add-button">
+          Add User
+        </button>
+      </div>
+
       <h1 className="title">My Notes</h1>
       <div className="input-container">
         <input
