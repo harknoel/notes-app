@@ -108,18 +108,9 @@ function App() {
           >
             Create New User
           </button>
-          {/* Button to trigger the modal for creating a new note */}
-          <button
-            type="button"
-            className="btn btn-primary ms-2"
-            data-bs-toggle="modal"
-            data-bs-target="#createNoteModal"
-          >
-            Create New Note
-          </button>
         </div>
       </nav>
-  
+
       {/* Modal for creating a new user */}
       <div
         className="modal fade"
@@ -189,7 +180,7 @@ function App() {
           </div>
         </div>
       </div>
-  
+
       {/* Modal for creating a new note */}
       <div
         className="modal fade"
@@ -219,7 +210,8 @@ function App() {
                   onChange={handleInputChange}
                   placeholder="Add a note..."
                   className="form-control"
-                  rows="3"
+                  rows="15"
+                  style={{ backgroundColor: "#FFF176" }}
                 ></textarea>
               </div>
             </div>
@@ -242,20 +234,31 @@ function App() {
           </div>
         </div>
       </div>
-  
+
       {/* Rest of the content */}
       <div className="container">
-        <label htmlFor="userId" className="form-label mt-3">
-          User ID:
-        </label>
-        <input
-          type="text"
-          id="userId"
-          className="form-control mt-2 mb-3"
-          placeholder="Enter User ID"
-          value={userId}
-          onChange={handleUserIdChange}
-        />
+        <div>
+          <label htmlFor="userId" className="form-label mt-3">
+            User ID:
+          </label>
+          <input
+            type="text"
+            id="userId"
+            className="form-control mt-2 mb-3"
+            placeholder="Enter User ID"
+            value={userId}
+            onChange={handleUserIdChange}
+          />
+        </div>
+        <h1>Hello, {userId}</h1>
+        <button
+          type="button"
+          className="btn btn-primary mt-3 mb-3"
+          data-bs-toggle="modal"
+          data-bs-target="#createNoteModal"
+        >
+          Create New Note
+        </button>
         <div className="row">
           <div className="col">
             <div className="bulletin-board">
@@ -295,7 +298,6 @@ function App() {
       </div>
     </div>
   );
-  
 }
 
 export default App;
