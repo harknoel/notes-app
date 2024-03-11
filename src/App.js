@@ -10,7 +10,6 @@ function App() {
   const [userId, setUserId] = useState("");
 
   useEffect(() => {
-    // Fetch existing notes when the component mounts
     fetchNotes();
   }, [userId]);
 
@@ -36,7 +35,7 @@ function App() {
         .post(
           "http://hyeumine.com/newnote.php",
           {
-            id: 34716, // Replace with the actual user ID
+            id: 34716, 
             note: inputValue,
           },
           {
@@ -46,7 +45,6 @@ function App() {
           }
         )
         .then((response) => {
-          // Update notes state with the newly added note
           setNotes([...notes, [inputValue, new Date().toLocaleString()]]);
           setInputValue("");
         })
@@ -85,7 +83,6 @@ function App() {
       .then((response) => {
         console.log("User created:", response.data);
         setUserId(response.data.id);
-        // Optionally, you can update the UI or perform other actions upon successful user creation
       })
       .catch((error) => {
         console.error("Error adding user:", error);
@@ -99,7 +96,6 @@ function App() {
           <a className="navbar-brand custom-navbar-brand" href="#">
             My Notes
           </a>
-          {/* Button to trigger the modal for creating a new user */}
           <button
             type="button"
             className="btn btn-primary ms-auto"
@@ -111,7 +107,6 @@ function App() {
         </div>
       </nav>
 
-      {/* Modal for creating a new user */}
       <div
         className="modal fade"
         id="createUserModal"
@@ -133,7 +128,6 @@ function App() {
               ></button>
             </div>
             <div className="modal-body">
-              {/* Inputs for creating a new user */}
               <div className="mb-3">
                 <label htmlFor="firstName" className="form-label">
                   First Name
@@ -181,7 +175,6 @@ function App() {
         </div>
       </div>
 
-      {/* Modal for creating a new note */}
       <div
         className="modal fade"
         id="createNoteModal"
@@ -203,7 +196,6 @@ function App() {
               ></button>
             </div>
             <div className="modal-body">
-              {/* Inputs for creating a new note */}
               <div className="input-group mb-3">
                 <textarea
                   value={inputValue}
@@ -235,7 +227,6 @@ function App() {
         </div>
       </div>
 
-      {/* Rest of the content */}
       <div className="container">
         <div>
           <label htmlFor="userId" className="form-label mt-3">
