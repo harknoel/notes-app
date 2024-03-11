@@ -17,7 +17,6 @@ function App() {
     axios
       .get(`http://hyeumine.com/mynotes.php?id=${userId}`)
       .then((response) => {
-        console.log(response.data.notes);
         setNotes(response.data.notes);
       })
       .catch((error) => {
@@ -81,7 +80,6 @@ function App() {
         }
       )
       .then((response) => {
-        console.log("User created:", response.data);
         setUserId(response.data.id);
       })
       .catch((error) => {
