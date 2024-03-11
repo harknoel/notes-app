@@ -34,7 +34,7 @@ function App() {
         .post(
           "http://hyeumine.com/newnote.php",
           {
-            id: 34716, 
+            id: 34716,
             note: inputValue,
           },
           {
@@ -164,6 +164,7 @@ function App() {
               <button
                 type="button"
                 className="btn btn-primary"
+                data-bs-dismiss="modal"
                 onClick={handleAddUser}
               >
                 Add User
@@ -216,6 +217,7 @@ function App() {
               <button
                 type="button"
                 className="btn btn-primary"
+                data-bs-dismiss="modal"
                 onClick={handleAddNote}
               >
                 Add Note
