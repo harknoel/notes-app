@@ -7,16 +7,18 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     // Fetch existing notes when the component mounts
     fetchNotes();
-  }, []);
+  }, [userId]);
 
   const fetchNotes = () => {
     axios
-      .get("http://hyeumine.com/mynotes.php?id=34716")
+      .get(`http://hyeumine.com/mynotes.php?id=${userId}`)
       .then((response) => {
+        console.log(response.data.notes);
         setNotes(response.data.notes);
       })
       .catch((error) => {
@@ -62,6 +64,10 @@ function App() {
     setLastName(event.target.value);
   };
 
+  const handleUserIdChange = (event) => {
+    setUserId(event.target.value);
+  };
+
   const handleAddUser = () => {
     axios
       .post(
@@ -86,48 +92,160 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <h1 className="title">Add User</h1>
-      <div className="input-container">
-        <input
-          type="text"
-          value={firstName}
-          onChange={handleFirstNameChange}
-          placeholder="First Name"
-          className="input-field"
-        />
-        <input
-          type="text"
-          value={lastName}
-          onChange={handleLastNameChange}
-          placeholder="Last Name"
-          className="input-field"
-        />
-        <button onClick={handleAddUser} className="add-button">
-          Add User
-        </button>
+    <div>
+      <nav className="navbar navbar-expand-lg navbar-light bg-warning">
+        {" "}
+        {/* Changed bg-light to bg-warning */}
+        <div className="container">
+          <a className="navbar-brand custom-navbar-brand" href="#">
+            My Notes
+          </a>
+          {/* Button to trigger the modal */}
+          <button
+            type="button"
+            className="btn btn-primary ms-auto"
+            data-bs-toggle="modal"
+            data-bs-target="#createUserModal"
+          >
+            Create New User
+          </button>
+        </div>
+      </nav>
+
+      {/* Modal for creating a new user */}
+      <div
+        className="modal fade"
+        id="createUserModal"
+        tabIndex="-1"
+        aria-labelledby="createUserModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="createUserModalLabel">
+                Create New User
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              {/* Inputs for creating a new user */}
+              <div className="mb-3">
+                <label htmlFor="firstName" className="form-label">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="firstName"
+                  value={firstName}
+                  onChange={handleFirstNameChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="lastName" className="form-label">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="lastName"
+                  value={lastName}
+                  onChange={handleLastNameChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleAddUser}
+              >
+                Add User
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <h1 className="title">My Notes</h1>
-      <div className="input-container">
+      {/* Rest of the content */}
+      <div className="container">
+        <label htmlFor="userId" className="form-label mt-3">
+          User ID:
+        </label>
         <input
           type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Add a note..."
-          className="input-field"
+          id="userId"
+          className="form-control mt-2 mb-3" // Adjusted margin to 2
+          placeholder="Enter User ID"
+          value={userId}
+          onChange={handleUserIdChange}
         />
-        <button onClick={handleAddNote} className="add-button">
-          +
-        </button>
+        <div className="row">
+          <div className="col">
+            <h1 className="title">Create a New Note</h1>
+            <div className="input-group mb-3">
+              <textarea
+                value={inputValue}
+                onChange={handleInputChange}
+                placeholder="Add a note..."
+                className="form-control"
+                rows="3"
+              ></textarea>
+            </div>
+            <button
+              onClick={handleAddNote}
+              className="btn btn-primary float-end"
+            >
+              Add Note
+            </button>
+            <div className="row row-cols-1 row-cols-md-3 g-4">
+              {notes
+                .slice()
+                .reverse()
+                .map((note, index) => (
+                  <div className="col" key={index}>
+                    <div
+                      className="card"
+                      style={{ backgroundColor: "#FFF176" }}
+                    >
+                      <div
+                        className="card-body"
+                        style={{
+                          minHeight: "150px",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <div>
+                          <h5 className="card-title">{note[0]}</h5>
+                        </div>
+                        <div className="text-end">
+                          <p className="card-text">{note[1]}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
       </div>
-      <ul className="notes-list">
-        {notes.map((note, index) => (
-          <li key={index} className="note">
-            {note[0]} - {note[1]}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

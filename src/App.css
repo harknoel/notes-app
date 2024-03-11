@@ -1,59 +1,18 @@
-.container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.title {
-  text-align: center;
+.custom-navbar-brand {
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: bold;
   font-size: 24px;
-  margin-bottom: 20px;
 }
 
-.input-container {
-  display: flex;
-  margin-bottom: 20px;
+.table-sticky-notes {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 10px;
 }
 
-.input-field {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.add-button {
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.notes-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.note {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.delete-button {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  padding: 5px 10px;
-  font-size: 16px;
+.sticky-note {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
