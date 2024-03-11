@@ -250,7 +250,7 @@ function App() {
             onChange={handleUserIdChange}
           />
         </div>
-        <h1>Hello, {userId}</h1>
+        {notes.length !== 0 && <h1>Hello, {userId}</h1>}
         <button
           type="button"
           className="btn btn-primary mt-3 mb-3"
@@ -262,36 +262,40 @@ function App() {
         <div className="row">
           <div className="col">
             <div className="bulletin-board">
-              <div className="row row-cols-1 row-cols-md-3 g-4">
-                {notes
-                  .slice()
-                  .reverse()
-                  .map((note, index) => (
-                    <div className="col" key={index}>
-                      <div
-                        className="card"
-                        style={{ backgroundColor: "#FFF176" }}
-                      >
+              {notes.length !== 0 ? (
+                <div className="row row-cols-1 row-cols-md-3 g-4">
+                  {notes
+                    .slice()
+                    .reverse()
+                    .map((note, index) => (
+                      <div className="col" key={index}>
                         <div
-                          className="card-body"
-                          style={{
-                            minHeight: "150px",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-between",
-                          }}
+                          className="card"
+                          style={{ backgroundColor: "#FFF176" }}
                         >
-                          <div>
-                            <h5 className="card-title">{note[0]}</h5>
-                          </div>
-                          <div className="text-end">
-                            <p className="card-text">{note[1]}</p>
+                          <div
+                            className="card-body"
+                            style={{
+                              minHeight: "150px",
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <div>
+                              <h5 className="card-title">{note[0]}</h5>
+                            </div>
+                            <div className="text-end">
+                              <p className="card-text">{note[1]}</p>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-              </div>
+                    ))}
+                </div>
+              ) : (
+                <h1 style={{ color: "White" }}>No notes found.</h1>
+              )}
             </div>
           </div>
         </div>
